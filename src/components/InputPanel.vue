@@ -1,5 +1,6 @@
 <template>
-<form class="panel-form" id="input_panel" @submit="createPost()">
+  <logout/>
+<form class="panel-form" id="input_panel" @submit.prevent="createPost()">
   <label for="x_in" >input coordinate x</label>
   <input class="cord-input" id="x_in" v-model="x">
 
@@ -14,8 +15,10 @@
 </template>
 
 <script>
+import Logout from "@/components/Logout";
 export default {
   name: "InputPanel",
+  components: {Logout},
   data(){
       return{
         x: '',

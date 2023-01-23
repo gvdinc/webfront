@@ -7,7 +7,7 @@
       <label for="user_password">Password</label>
       <input id="user_password" type="password" v-model="formData.password">
 
-      <p class="gl-field-error hidden">This field is required.</p>
+      <p class="gl-field-error hidden">{{mistake_message}}</p>
 
       <button class="submit-button" type="submit" id="logButton">Login</button>
       <RouterLink to="/registration">Registration</RouterLink>
@@ -26,7 +26,9 @@ export default {
       formData: {
         login: '',
         password: ''
-      }
+      },
+      state: '',
+      mistake_message: ''
     }
   },
 
@@ -44,6 +46,24 @@ export default {
         }),
       }).then(response => {
         console.log(response);
+        this.state = response.get("login_state")
+        switch (this.state){
+          case "none":
+            console.log("login operation dismissed");
+            this.mistake_message = "";
+            break;
+          case "logon":
+            this.mistake_message = "";
+            window.location.href = '/panel';
+            break;
+          case "wrong_login":
+            this.mistake_message = "Wrong Login";
+            break;
+          case "wrong_password":
+            this.mistake_message = "Wrong Login";
+            break;
+        }
+
        })
           .catch(error => {
             console.log(error);
