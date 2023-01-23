@@ -10,7 +10,7 @@ export default {
 
   methods: {
     logoutPOST(){
-      fetch('/register', {
+      fetch('http://localhost:8081/logout', {
         method: 'POST',
       }).then(response => {
         console.log(response);

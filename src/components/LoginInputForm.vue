@@ -35,14 +35,14 @@ export default {
   methods: {
     createPostLog() {
       if (!this.verifyData()) {return}
-      fetch('/login', {
+      fetch('http://localhost:8081/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           login: this.formData.login,
-          password: this.formData.password,
+          password_hash: this.formData.password.hashCode(),
         }),
       }).then(response => {
         console.log(response);

@@ -31,7 +31,7 @@ export default {
 
   methods: {
     getTableData() {
-      fetch('/shots', {
+      fetch('http://localhost:8081/shots', {
         method: 'POST',
       }).then(response => response.json()).then(json => {this.shotMass = json})
           .catch(error => {

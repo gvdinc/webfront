@@ -32,7 +32,7 @@ export default {
       if (!this.verifyData()) {
         return
       }
-      fetch('/shot', {
+      fetch('http://localhost:8081/shot', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

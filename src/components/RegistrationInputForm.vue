@@ -1,6 +1,6 @@
 <template>
   <div id="register-container">
-    <form class="RegisterForm" id="new_user" method="post" @submit.prevent="createPostLog">
+    <form class="RegisterForm" id="new_user" method="post" @submit.prevent="createPostLog()">
       <label for="reg_user_login">Username or email</label>
       <input id="reg_user_login" type="text" v-model="formData.login">
 
@@ -34,15 +34,15 @@ export default {
 
   methods: {
     createPostLog() {
-      if (!this.verifyData()) {return}
-      fetch('/register', {
+      if (!this.verifyData()) {console.log(this.verifyData()); return}
+      fetch('http://localhost:8081/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           login: this.formData.login,
-          password: this.formData.password,
+          password_hash: this.formData.password.hashCode(),
         }),
       }).then(response => {
         console.log(response);
@@ -53,8 +53,8 @@ export default {
     },
 
     verifyData(){
-      return (22 >= this.formData.login.length >= 8 && 22 >= this.formData.password.length >= 8 &&
-          this.formData.password_repeat === this.formData.password);
+      return ( this.formData.login.length >= 8 && this.formData.password.length >= 8 && this.formData.password.length <= 30 &&
+          this.formData.login.length <= 30 && this.formData.password_repeat === this.formData.password);
     }
   }
 }
